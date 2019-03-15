@@ -1,0 +1,35 @@
+body{background:url("../image/background12.png") no-repeat;
+	overflow-y:scroll;
+	}
+	h1{font-size:28px; color:2222222;}
+
+#log{
+ padding:60px 40px;
+ margin-top:80px;
+ -webkit-box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+-moz-box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+}
+img{ width:150px;
+	margin:auto;
+}
+#errormessagesbox{
+font-size:20px; color:#aa0000;
+text-align: center;
+align: center;
+}
+#messagesbox{
+font-size:20px; color:#00aa00;
+text-align: center;
+align: center;
+}
+h1{
+color:white;
+text-align:center;
+font-weight:bolder;
+margin-top:-20px;
+}
+label{font-size:20px; color:2222222;}
+button{
+
+}
