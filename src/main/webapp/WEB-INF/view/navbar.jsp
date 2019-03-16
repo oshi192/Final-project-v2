@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" id="nav-logo" href="${pageContext.request.contextPath}/taxi">${msg:getMessage("nav-bar-service")}</a>
+      <a class="navbar-brand" class="nav-logo" href="${pageContext.request.contextPath}/taxi">${msg:getMessage("nav-bar-service")}</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -59,8 +59,8 @@
               </c:choose>
               <li>
             <ul class="lang">
-                <li><a href="?lang=En">En   .</a></li>
-                <li><a href="?lang=Uk">Ua   .</a></li>
+                <li><a class="color-style" href="?lang=En">En   .</a></li>
+                <li><a class="color-style" href="?lang=Uk">Ua   .</a></li>
             </ul>
         </li>
       </ul>

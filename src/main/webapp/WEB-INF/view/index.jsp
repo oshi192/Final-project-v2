@@ -11,8 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
-        <script src="<c:url value="/resources/bootstrap/js/jquery.min.js" />"></script>
-        <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+        <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.min.js" ></script>
+        <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     </head>
 
     <body>
