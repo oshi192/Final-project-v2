@@ -8,10 +8,10 @@ import java.util.Map;
 public class CommandMannager {
     private static Map<String, Command> commands = new HashMap<>();
     static {
-        commands.put("login", new CommandLogin());
-        commands.put("logout", new CommandLogout());
+        commands.put("/login", new CommandLogin());
+        commands.put("/logout", new CommandLogout());
         commands.put("", new CommandHomePage());
-        commands.put("registration", new CommandRegister());
+        commands.put("/registration", new CommandRegister());
 
     }
 

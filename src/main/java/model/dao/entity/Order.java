@@ -7,13 +7,13 @@ public class Order {
     private LocalDateTime time;
     private String startPoint;
     private String endPoint;
-    private Taxi.CarType carType;
+    private CarType carType;
     private int userId;
 
     public Order() {
     }
 
-    public Order(int id, LocalDateTime time, String startPoint, String endPoint, Taxi.CarType carType, int userId) {
+    public Order(int id, LocalDateTime time, String startPoint, String endPoint, CarType carType, int userId) {
         this.id = id;
         this.time = time;
         this.startPoint = startPoint;
@@ -54,11 +54,11 @@ public class Order {
         this.endPoint = endPoint;
     }
 
-    public Taxi.CarType getCarType() {
+    public CarType getCarType() {
         return carType;
     }
 
-    public void setCarType(Taxi.CarType carType) {
+    public void setCarType(CarType carType) {
         this.carType = carType;
     }
 

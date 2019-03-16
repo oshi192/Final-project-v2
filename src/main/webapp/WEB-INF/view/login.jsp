@@ -4,8 +4,8 @@
 <html>
     <head>
         <title>Login page</title>
-        <link href="${pageContext.request.contextPath}/resources/css/login5.css" />" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/resources/css/flags.css" />" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/login5.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/flags.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="<c:url value="/resources/bootstrap/js/jquery.min.js" />"></script>

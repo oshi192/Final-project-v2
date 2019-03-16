@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/taxi">${msg:getMessage("nav-bar-service")}</a>
+      <a class="navbar-brand" id="nav-logo" href="${pageContext.request.contextPath}/taxi">${msg:getMessage("nav-bar-service")}</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -19,7 +19,12 @@
                 text1
             </a>
         </li>
-
+        <c:if test="${user.role.name == 'ADMIN'}">
+            <jsp:include page="admin-menu.jsp"/>
+        </c:if>
+        <c:if test="${user.role.name == 'USER'}">
+            <jsp:include page="usermenu.jsp"/>
+        </c:if>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 
@@ -53,11 +58,11 @@
                   </c:otherwise>
               </c:choose>
               <li>
-              <ul class="lang">
+            <ul class="lang">
                 <li><a href="?lang=En">En   .</a></li>
                 <li><a href="?lang=Uk">Ua   .</a></li>
-                </ul>
-                </li>
+            </ul>
+        </li>
       </ul>
     </div>
   </div>

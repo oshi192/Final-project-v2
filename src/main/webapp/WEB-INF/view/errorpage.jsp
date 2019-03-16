@@ -1,28 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="msg" uri="msg" %>
+<%@ page language="java" isErrorPage="true"  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*" %>
+<html lang="en">
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Some Books example</title>
 
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="<c:url value="/resources/bootstrap/js/jquery.min.js" />"></script>
-        <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
-    </head>
+	<title>Error!</title>
 
-    <body>
-    <div class="container-fluid">
-        	<div class="row">
-        		<div class="col-md-12">
-                    <jsp:include page="navbar.jsp"/>
-                    <p style="font-color:red;">Error: "${requestScope.errormessage}</p>
-                    </div>
-                </div>
-            </div>
-    </div>
-    </body>
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet">
+
+	<!-- Font Awesome Icon -->
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/errorpage/font-awesome.min.css" />
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/errorpage/style.css" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+
+	<div id="notfound">
+		<div class="notfound-bg">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1>404</h1>
+			</div>
+			<h2>Page Not Found</h2>
+			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+			<p><h2><%= exception %></h2></p>
+			<a href="${pageContext.request.contextPath}/taxi">Homepage</a>
+		</div>
+	</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

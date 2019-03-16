@@ -1,5 +1,6 @@
 package model.dao.jbdc.mapper;
 
+import model.dao.entity.Role;
 import model.dao.entity.User;
 
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ public class UserMapper implements ObjectMapper<User> {
         user.setName(resultSet.getString("name"));
         user.setSurname(resultSet.getString("surname"));
         user.setSum(resultSet.getInt("summ"));
+        user.setRole(new Role(resultSet.getInt("idrole"),(resultSet.getString("role"))));
 
         return user;
     }
@@ -29,9 +31,10 @@ public class UserMapper implements ObjectMapper<User> {
     }
     public void putIntoPrepareStatement(PreparedStatement ps, User user) throws SQLException {
         ps.setString(1, user.getName());
-        ps.setString( 2, user.getSurname());
-        ps.setString( 3, user.getPhoneNumber());
-        ps.setString( 4, user.getEmail());
-        ps.setString( 5, user.getPassword());
+        ps.setString(2, user.getSurname());
+        ps.setString(3, user.getEmail());
+        ps.setString(4, user.getPassword());
+        ps.setString(5, user.getPhoneNumber());
+        ps.setInt(6, user.getRole().getId());
     }
 }

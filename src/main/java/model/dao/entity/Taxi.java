@@ -1,24 +1,17 @@
 package model.dao.entity;
 
 public class Taxi {
-    public enum Status{
-        FREE, ON_THE_WAY,PAUSE
-    }
-    public enum CarType{
-        STANDARD, COMFORT, BUSINESS, WAGON, MINIBUS
-    }
-
 
     private int id;
-    private Status status;
+    private TaxiStatus taxiStatus;
     private CarType carType;
 
     public Taxi() {
     }
 
-    public Taxi(int id, Status status, CarType carType) {
+    public Taxi(int id, TaxiStatus taxiStatus, CarType carType) {
         this.id = id;
-        this.status = status;
+        this.taxiStatus = taxiStatus;
         this.carType = carType;
     }
 
@@ -30,12 +23,12 @@ public class Taxi {
         this.id = id;
     }
 
-    public Status getStatus() {
-        return status;
+    public TaxiStatus getStatus() {
+        return taxiStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(TaxiStatus status) {
+        this.taxiStatus = status;
     }
 
     public CarType getCarType() {

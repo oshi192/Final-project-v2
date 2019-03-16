@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-//@WebFilter(filterName = "LangFilter", urlPatterns = {"/taxix"})
+@WebFilter(filterName = "LangFilter", urlPatterns = {"/taxi/*"})
 public class LocaleFilter implements Filter {
     private final static Logger logger = Logger.getLogger(LocaleFilter.class);
 

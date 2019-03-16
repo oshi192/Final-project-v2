@@ -75,6 +75,7 @@ public class CommandLogin implements Command {
         session.setAttribute("firstName", user.getName());
         session.setAttribute("surName", user.getSurname());
         session.setAttribute("user", user);
+        session.setAttribute("userRole", user.getRole());
     }
 
 }
