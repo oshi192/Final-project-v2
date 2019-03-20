@@ -6,7 +6,8 @@ public abstract class DaoFactory {
     private static DaoFactory daoFactory;
 
     public abstract UserDao createUserDao();
-    //public abstract RouteDao createRouteDao();
+    public abstract CarTypeDao createCarTypeDao();
+    public abstract TaxiDao createTaxiDao();
     //public abstract AssignmentDao createAssignmentDao();
     //public abstract CarDao createCarDao();
 

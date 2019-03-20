@@ -37,7 +37,7 @@ public class CommandRegister implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         if(POST_METHOD.equals(request.getMethod())){
-            return methodSome(request);
+            return methodSome(request);//todo rename
         }else{
             return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
         }

@@ -35,11 +35,13 @@ public class RoleFilter implements Filter {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(USER_ATTR);
         Role role;
+        /*remove this!!!*/user=new User(); user.setRole(new Role(3,"ADMIN"));request.setAttribute("user",user);
         if (Objects.isNull(user)) {
             role = new Role(1, "GUEST");
         } else {
             role = user.getRole();
         }
+
         AccessMapper mapper = AccessMapper.getInstance();
         boolean enoughRights = mapper.checkRights(req, role.getName());
         logger.info("\trole: " + role.getName() + " enoughRights: " + enoughRights);

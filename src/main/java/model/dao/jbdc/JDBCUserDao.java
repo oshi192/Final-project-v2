@@ -13,19 +13,14 @@ import java.sql.*;
 import java.util.List;
 
 public class JDBCUserDao implements UserDao {
-    private Connection connection;
     static final Logger logger = Logger.getLogger(JDBCUserDao.class);
-
-    public JDBCUserDao(Connection connection) {
-        this.connection = connection;
-    }
-
 
     @Override
     public User findByEmail(String email) throws UserNotFoundException {
         String query = ResourceBundleManager.getSqlString("user-findByEmail");
         logger.info(query);
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, email);
             logger.info(query +"\n"+ st);
             ResultSet resultSet = st.executeQuery();
@@ -43,18 +38,23 @@ public class JDBCUserDao implements UserDao {
     public User create(User user) {
         final String queryInsertUser = ResourceBundleManager.getSqlString("user-create");
         try {
-            connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement(queryInsertUser, Statement.RETURN_GENERATED_KEYS);
-            new UserMapper().putIntoPrepareStatement(ps,user);
-            ps.executeUpdate();
-            connection.commit();
-        } catch (SQLException ex) {
+            Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
             try {
-                connection.rollback();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                connection.setAutoCommit(false);
+                PreparedStatement ps = connection.prepareStatement(queryInsertUser, Statement.RETURN_GENERATED_KEYS);
+                new UserMapper().putIntoPrepareStatement(ps, user);
+                ps.executeUpdate();
+                connection.commit();
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                throw new UserAlreadyExistException("register.userExist");
             }
-            throw new UserAlreadyExistException("register.userExist");
+        }catch (SQLException ex){
+            throw new RuntimeException("cannot get connection");
         }
         return user;
     }
@@ -62,7 +62,8 @@ public class JDBCUserDao implements UserDao {
     @Override
     public User findById(int id) {
         final String query = ResourceBundleManager.getSqlString(ResourceBundleManager.USER_BY_ID);
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setInt(1, id);
             return getUser(st);
         } catch (SQLException e) {
@@ -89,6 +90,22 @@ public class JDBCUserDao implements UserDao {
     @Override
     public void close() {
 
+    }
+
+    @Override
+    public int count() {
+        int result = 0;
+        String query = ResourceBundleManager.getSqlString(ResourceBundleManager.USER_COUNT);
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
+            ResultSet resultSet = st.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private User getUser(PreparedStatement st) throws SQLException {

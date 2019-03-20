@@ -12,6 +12,6 @@ public class Taxi {
     private int id;
     private int idtaxiStatus;
     private int idcarType;
-    private String descryption;
+    private String description;
 
 }

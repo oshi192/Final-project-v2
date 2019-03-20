@@ -21,17 +21,21 @@ public class AccessMapper {
 
         rights = new HashMap<>();
         rights.put("GUEST",Arrays.asList(
-                "/",
-                "/login",
-                "/registration"
+                "",
+                "login",
+                "registration",
+                "/taxi"
         ));
         rights.put("USER",Arrays.asList(
-                "/",
-                "/logout"
+                "",
+                "logout",
+                "/taxi"
         ));
         rights.put("ADMIN",Arrays.asList(
-                "/",
-                "/logout"
+                "",
+                "logout",
+                "taxis",
+                "/taxi"
         ));
         return rights;
     }
@@ -45,7 +49,7 @@ public class AccessMapper {
 
 
     public boolean checkRights(HttpServletRequest request, String role) {
-        String page = request.getRequestURI().replaceAll(".*/taxi", "");
+        String page = request.getRequestURI().replaceAll(".*/taxi/", "");
         if (page.isEmpty() || page.contains("resources")) {
             return true;
         }

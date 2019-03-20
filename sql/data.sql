@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`users` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`discounts` (
-  `idshares` INT NOT NULL AUTO_INCREMENT,
+  `iddiscounts` INT NOT NULL AUTO_INCREMENT,
   `sum_with_usersDiscount` TINYINT(1) NOT NULL,
   `text` VARCHAR(45) NOT NULL,
   `startdate` DATE NOT NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`carType` (
   `idCarType` INT NOT NULL AUTO_INCREMENT,
-  `typeName` VARCHAR(45) NOT NULL,
+  `carTypeName` VARCHAR(45) NOT NULL,
   `price_city_km` INT NOT NULL,
   `price_over_the_city_km` INT NOT NULL,
   `price_waiting_time_minute` INT NOT NULL,
@@ -51,16 +51,16 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`carType` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`taxiStatus` (
-  `idstatus` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idstatus`))
+  `idTaxiStatus` INT NOT NULL AUTO_INCREMENT,
+  `taxiStatusName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTaxiStatus`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`taxi` (
   `idtaxi` INT NOT NULL AUTO_INCREMENT,
   `carType_idCarType` INT NOT NULL,
   `status_idstatus` INT NOT NULL,
-  `descryption` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idtaxi`),
   INDEX `fk_taxi_carType1_idx` (`carType_idCarType` ASC),
   INDEX `fk_taxi_status1_idx` (`status_idstatus` ASC),
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`taxi` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_taxi_status1`
     FOREIGN KEY (`status_idstatus`)
-    REFERENCES `taxi_services`.`taxiStatus` (`idstatus`)
+    REFERENCES `taxi_services`.`taxiStatus` (`idTaxiStatus`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

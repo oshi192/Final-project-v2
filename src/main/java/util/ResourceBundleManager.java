@@ -4,6 +4,20 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ResourceBundleManager {
+    public static final String TAXI_ALL_JOIN = "taxi-all-join";
+    public static final String TAXI_ALL = "taxi-all";
+    public static final String TAXI_COUNT = "taxi-count";
+
+    public static final String CARTYPE_ALL = "cartype-all";
+    public static final String CARTYPE_BY_CARTYPENAME = "cartype-by-cartypename";
+    public static final String CARTYPE_COUNT = "cartype-count";
+
+    public static final String USER_COUNT = "user-count";
+
+    public static final String ORDER_COUNT = "order-count";
+
+    public static final String DISCOUNT_COUNT = "discount-count";
+
     private static final String BUNDLE_NAME_MESSAGE = "message";
     private static final String BUNDLE_NAME_CONFIG = "";
     private static final String BUNDLE_NAME_SQL = "sql";
@@ -12,6 +26,8 @@ public class ResourceBundleManager {
     public static final String PAGE_INDEX_PATH = "PAGE_INDEX_PATH";
     public static final String PAGE_LOGIN_PATH = "PAGE_LOGIN_PATH";
     public static final String PAGE_REGISTER_PATH = "PAGE_REGISTER_PATH";
+    public static final String PAGE_TAXIS_PATH = "PAGE_TAXIS_PATH";
+
 
     public static final String USER_BY_ID = "user-findById";
 

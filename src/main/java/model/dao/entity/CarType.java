@@ -10,7 +10,7 @@ import lombok.*;
 
 public class CarType {
     private int id;
-    private String name;
+    private String carTypeName;
     public int priceCityKm;
     public int priceOverTheCityKm;
     public int priceWaitingTimeMinute;

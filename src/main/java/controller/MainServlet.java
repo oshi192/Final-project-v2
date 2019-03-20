@@ -19,7 +19,7 @@ public class MainServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MainServlet.class);
     private final static String EMPTY = "";
     private final static String REDIRECT = "redirect:";
-    private final static String SERVLET = ".*/taxi";
+    private final static String SERVLET = ".*/taxi/";
     private static ServletContext context;
 
     public static ServletContext getContext() {

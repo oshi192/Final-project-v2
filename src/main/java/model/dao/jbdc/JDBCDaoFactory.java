@@ -1,6 +1,8 @@
 package model.dao.jbdc;
 
+import model.dao.CarTypeDao;
 import model.dao.DaoFactory;
+import model.dao.TaxiDao;
 import model.dao.UserDao;
 
 import javax.sql.DataSource;
@@ -8,18 +10,20 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class JDBCDaoFactory extends DaoFactory {
-    private DataSource dataSource = ConnectionPoolHolder.getDataSource();
 
     @Override
     public UserDao createUserDao() {
-        return new JDBCUserDao(getConnection());
+        return new JDBCUserDao();
     }
 
-    private Connection getConnection() {
-        try {
-            return dataSource.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public CarTypeDao createCarTypeDao() {
+        return new JDBCCarTypeDao();
     }
+
+    @Override
+    public TaxiDao createTaxiDao() {
+        return new JDBCTaxiDao();
+    }
+
 }
