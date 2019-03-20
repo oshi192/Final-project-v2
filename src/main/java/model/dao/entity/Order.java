@@ -15,6 +15,11 @@ public class Order {
     private LocalDateTime time;
     private String startPoint;
     private String endPoint;
-    private int carType;
+    private String comment;
+    private String orderTime;
+    private int carTypeId;
     private int userId;
+    private int taxiId;
+    private int orderStatusId;
+
 }

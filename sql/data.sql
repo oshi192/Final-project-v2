@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`discounts` (
   `startdate` DATE NOT NULL,
   `enddate` DATE NOT NULL,
   `author_id` INT NOT NULL,
-  PRIMARY KEY (`idshares`),
+  PRIMARY KEY (`iddiscounts`),
   INDEX `fk_discounts_users1_idx` (`author_id` ASC),
   CONSTRAINT `fk_discounts_users1`
     FOREIGN KEY (`author_id`)
@@ -82,6 +82,34 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`orderStatus` (
   PRIMARY KEY (`idorderStatus`))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `taxi_services`.`city` (
+  `idcity` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idcity`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `taxi_services`.`city_distance` (
+  `idcity_distance` INT NOT NULL AUTO_INCREMENT,
+  `id_from_city` INT NOT NULL,
+  `id_to_city` VARCHAR(45) NOT NULL,
+  `distance_km` INT NOT NULL,
+  `tocity_idcity` INT NOT NULL,
+  `fromcity_idcity1` INT NOT NULL,
+  PRIMARY KEY (`idcity_distance`),
+  INDEX `fk_city_distance_city1_idx` (`tocity_idcity` ASC),
+  INDEX `fk_city_distance_city2_idx` (`fromcity_idcity1` ASC),
+  CONSTRAINT `fk_city_distance_city1`
+    FOREIGN KEY (`tocity_idcity`)
+    REFERENCES `taxi_services`.`city` (`idcity`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_city_distance_city2`
+    FOREIGN KEY (`fromcity_idcity1`)
+    REFERENCES `taxi_services`.`city` (`idcity`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
   `idorder` INT NOT NULL AUTO_INCREMENT,
   `startPoint` VARCHAR(45) NOT NULL,
@@ -90,9 +118,15 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
   `user_iduser` INT NOT NULL,
   `carType_idCarType` INT NOT NULL,
   `comment` VARCHAR(255) NULL,
+  `orderStatus_idorderStatus` INT NOT NULL,
+  `taxi_idtaxi` INT NOT NULL,
+  `city_distance_idcity_distance` INT NOT NULL,
   PRIMARY KEY (`idorder`, `user_iduser`),
   INDEX `fk_order_user_idx` (`user_iduser` ASC),
   INDEX `fk_order_carType1_idx` (`carType_idCarType` ASC),
+  INDEX `fk_order_orderStatus1_idx` (`orderStatus_idorderStatus` ASC),
+  INDEX `fk_order_taxi1_idx` (`taxi_idtaxi` ASC),
+  INDEX `fk_order_city_distance1_idx` (`city_distance_idcity_distance` ASC),
   CONSTRAINT `fk_order_user`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `taxi_services`.`users` (`iduser`)
@@ -100,7 +134,22 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_carType1`
     FOREIGN KEY (`carType_idCarType`)
-    REFERENCES `taxi_services`.`carType` (`idCarType`)
+    REFERENCES `mydb`.`carType` (`idCarType`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_orderStatus1`
+    FOREIGN KEY (`orderStatus_idorderStatus`)
+    REFERENCES `taxi_services`.`orderStatus` (`idorderStatus`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_taxi1`
+    FOREIGN KEY (`taxi_idtaxi`)
+    REFERENCES `taxi_services`.`taxi` (`idtaxi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_city_distance1`
+    FOREIGN KEY (`city_distance_idcity_distance`)
+    REFERENCES `taxi_services`.`city_distance` (`idcity_distance`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -160,5 +209,17 @@ commit;
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`order` values(DEFAULT,'', '', '2018-12-08',1,1,'someComent');
+insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
+commit;
+
+
+start transaction;
+use taxi_services;
+insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
+commit;
+
+
+start transaction;
+use taxi_services;
+insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
 commit;

@@ -13,8 +13,11 @@ public class ResourceBundleManager {
     public static final String CARTYPE_COUNT = "cartype-count";
 
     public static final String USER_COUNT = "user-count";
+    public static final String USER_ALL = "user-all";
 
     public static final String ORDER_COUNT = "order-count";
+    public static final String ORDER_ALL_BY_USER_ID = "order-all-by-userid";
+    public static final String ORDER_ALL_BY_USER_ID_PAGGINATE = "order-all-by-userid-paginate";
 
     public static final String DISCOUNT_COUNT = "discount-count";
 
@@ -27,6 +30,7 @@ public class ResourceBundleManager {
     public static final String PAGE_LOGIN_PATH = "PAGE_LOGIN_PATH";
     public static final String PAGE_REGISTER_PATH = "PAGE_REGISTER_PATH";
     public static final String PAGE_TAXIS_PATH = "PAGE_TAXIS_PATH";
+    public static final String PAGE_USER_HISTORY_PATH = "PAGE_USER_HISTORY_PATH";
 
 
     public static final String USER_BY_ID = "user-findById";

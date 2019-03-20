@@ -14,6 +14,7 @@ public class CommandMannager {
         commands.put("/taxi", new CommandHomePage());
         commands.put("registration", new CommandRegister());
         commands.put("taxis", new CommandAdminTaxis());
+        commands.put("history", new CommandUserHistory());
 
     }
 

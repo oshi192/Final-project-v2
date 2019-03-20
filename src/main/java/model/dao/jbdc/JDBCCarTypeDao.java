@@ -89,8 +89,8 @@ public class JDBCCarTypeDao implements CarTypeDao {
              PreparedStatement st = connection.prepareStatement(query)) {
             logger.info(connection);
             st.setString(1, carTypeName);
-            ResultSet resultSet = st.executeQuery();
             logger.info(st);
+            ResultSet resultSet = st.executeQuery();
             if (resultSet.next()) {
                 carType = carTypeMapper.extractFromResultSet(resultSet);
             }

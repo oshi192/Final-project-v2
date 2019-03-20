@@ -3,17 +3,19 @@ package model.dao.jbdc;
 import exception.InputException;
 import exception.UserAlreadyExistException;
 import exception.UserNotFoundException;
-import model.dao.entity.User;
 import model.dao.UserDao;
+import model.dao.entity.User;
 import model.dao.jbdc.mapper.UserMapper;
 import org.apache.log4j.Logger;
 import util.ResourceBundleManager;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCUserDao implements UserDao {
     static final Logger logger = Logger.getLogger(JDBCUserDao.class);
+    private UserMapper mapper = new UserMapper();
 
     @Override
     public User findByEmail(String email) throws UserNotFoundException {
@@ -74,7 +76,18 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        return null;
+        List<User> users = new ArrayList<>();
+        String query = ResourceBundleManager.getSqlString(ResourceBundleManager.USER_ALL);
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
+            ResultSet resultSet = st.executeQuery();
+            while (resultSet.next()) {
+                users.add(mapper.extractFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     @Override

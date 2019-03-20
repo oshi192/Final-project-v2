@@ -29,7 +29,8 @@ public class AccessMapper {
         rights.put("USER",Arrays.asList(
                 "",
                 "logout",
-                "/taxi"
+                "/taxi",
+                "history"
         ));
         rights.put("ADMIN",Arrays.asList(
                 "",

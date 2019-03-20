@@ -15,7 +15,7 @@ import java.util.List;
 
 public class JDBCTaxiDao implements TaxiDao {
     static final Logger logger = Logger.getLogger(JDBCTaxiDao.class);
-    private TaxiMapper taxiMapper = new TaxiMapper();
+    private TaxiMapper mapper = new TaxiMapper();
 
 
     public JDBCTaxiDao() {
@@ -55,18 +55,17 @@ public class JDBCTaxiDao implements TaxiDao {
 
     @Override
     public List<Taxi> findAll() {
-        List<Taxi> taxis = null;
+        List<Taxi> taxis = new ArrayList<>();
         String query = ResourceBundleManager.getSqlString(ResourceBundleManager.TAXI_ALL);
         try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
              PreparedStatement st = connection.prepareStatement(query)) {
             ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
-                taxis.add(taxiMapper.extractFromResultSet(resultSet));
+                taxis.add(mapper.extractFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return taxis;
     }
 
@@ -81,7 +80,7 @@ public class JDBCTaxiDao implements TaxiDao {
             ResultSet resultSet = st.executeQuery();
             logger.info(st);
             while (resultSet.next()) {
-                taxis.add(taxiMapper.extractFromResultSetDTO(resultSet));
+                taxis.add(mapper.extractFromResultSetDTO(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException("cant get connection");

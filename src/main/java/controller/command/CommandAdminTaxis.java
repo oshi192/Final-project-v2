@@ -3,7 +3,6 @@ package controller.command;
 import model.Pagination;
 import model.dao.entity.Taxi;
 import model.dao.jbdc.JDBCDaoFactory;
-import model.dao.jbdc.JDBCTaxiDao;
 import model.service.CarTypeService;
 import model.service.TaxiService;
 import org.apache.log4j.Logger;
@@ -11,9 +10,7 @@ import util.ResourceBundleManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CommandAdminTaxis implements Command {
@@ -28,7 +25,11 @@ public class CommandAdminTaxis implements Command {
             String rp=request.getParameter("recordsPerPage");
             if(rp == null || rp.isEmpty()){
                 logger.info("taxis recordsPerPage is empty");
+
+            }else{
+                logger.info("new recordsPerPage: "+rp);
                 request.setAttribute("currentPage",1);
+                request.setAttribute("recordsPerPage",rp);
             }
             String add=request.getParameter("add");
             if(add != null && !add.isEmpty()){

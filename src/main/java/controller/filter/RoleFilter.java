@@ -35,7 +35,7 @@ public class RoleFilter implements Filter {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(USER_ATTR);
         Role role;
-        /*remove this!!!*/user=new User(); user.setRole(new Role(3,"ADMIN"));request.setAttribute("user",user);
+        /*remove this!!!*/user=new User(); user.setId(1);user.setRole(new Role(2,"USER"));request.setAttribute("user",user);
         if (Objects.isNull(user)) {
             role = new Role(1, "GUEST");
         } else {

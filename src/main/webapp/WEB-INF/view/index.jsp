@@ -19,7 +19,7 @@
     <div class="container-fluid">
         	<div class="row">
         		<div class="col-md-12">
-                    <jsp:include page="navbar.jsp"/>
+                    <jsp:include page="parts/navbar.jsp"/>
 
                     <div class="jumbotron">
                         <h2>
