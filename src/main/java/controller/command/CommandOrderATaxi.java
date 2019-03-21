@@ -1,17 +1,15 @@
 package controller.command;
 
-import controller.MainServlet;
+import exception.EqualsCityException;
 import exception.TaxiNotFoundException;
 import model.dao.DaoFactory;
 import model.dao.entity.CarType;
 import model.dao.entity.City;
-import model.dao.entity.Order;
-import model.dao.jbdc.JDBCCityDao;
+import model.dao.entity.User;
+import model.dto.OrderDTO;
 import model.service.CarTypeService;
 import model.service.OrderService;
-import model.service.TaxiService;
 import org.apache.log4j.Logger;
-import org.w3c.dom.stylesheets.LinkStyle;
 import util.ResourceBundleManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +26,9 @@ public class CommandOrderATaxi implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String path;
-        if(POST_METHOD.equals(request.getMethod())){
+        if (POST_METHOD.equals(request.getMethod())) {
             path = executePost(request);
-        }else{
+        } else {
             path = executeGet(request);
         }
         return path;
@@ -38,11 +36,12 @@ public class CommandOrderATaxi implements Command {
 
     private String executeGet(HttpServletRequest request) {
         List<CarType> carTypes = carTypeService.getAll();
-        List<City> cities =factory.createCityDao().findAll();
-        request.setAttribute("carTypes",carTypes);
-        request.setAttribute("cities",cities);
-        request.getSession().setAttribute("carTypes",carTypes);
-        request.getSession().setAttribute("cities",cities);
+        List<City> cities = factory.createCityDao().findAll();
+        request.setAttribute("carTypes", carTypes);
+        request.setAttribute("cities", cities);
+        request.getSession().setAttribute("carTypes", carTypes);
+        request.getSession().setAttribute("cities", cities);
+        logger.info("GET cities:" + cities.size() + " carTypes:" + carTypes.size());
         return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_ORDER_A_TAXI);
     }
 
@@ -52,14 +51,51 @@ public class CommandOrderATaxi implements Command {
         String fromCity = request.getParameter("fromCity");
         String carType = request.getParameter("carType");
         try {
-            Order order = orderService.createOrderFromRequest(request);
-            request.setAttribute("order",order);
-            factory.createOrderDao().create(order);
+            OrderDTO order = orderService.createOrderFromRequest(request);
+            if(order.getCityDistance().getToCityId() == order.getCityDistance().getFromCityId()){
+                throw new EqualsCityException("equals city");
+            }
+            setConfirmParameters(request);
         } catch (TaxiNotFoundException e) {
-            request.setAttribute("errorMessage", "sorry"+e);
+            request.setAttribute("errorMessage", "sorry" + e);
+        } catch (EqualsCityException e) {
+            request.setAttribute("errorMessage", "equals city!!");
         }
-        logger.info("POST order fromCity:"+fromCity+" toCity:"+toCity+" carType:"+carType+" comment:"+comment+" "+request.getSession().getAttribute("carTypes"));
+        logger.info("POST order fromCity:" + fromCity + " toCity:" + toCity + " carType:" + carType + " comment:" + comment + " " + request.getSession().getAttribute("carTypes"));
 
         return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_ORDER_A_TAXI);
+    }
+
+    private void setConfirmParameters(HttpServletRequest request) throws TaxiNotFoundException {
+        OrderDTO order = orderService.createOrderFromRequest(request);
+        request.setAttribute("order", order);
+        request.setAttribute("from", ((List<City>) request.getSession().getAttribute("cities"))
+                .stream()
+                .filter(x -> x.getId() == order.getCityDistance().getFromCityId())
+                .findFirst()
+                .get()
+                .getCityName()
+        );
+        request.setAttribute("to", ((List<City>) request.getSession().getAttribute("cities"))
+                .stream()
+                .filter(x -> x.getId() == order.getCityDistance().getToCityId())
+                .findFirst()
+                .get()
+                .getCityName()
+        );
+        request.setAttribute("carType", ((List<CarType>) request.getSession().getAttribute("carTypes"))
+                .stream()
+                .filter(x -> x.getId() == order.getCarTypeId())
+                .findFirst()
+                .get()
+                .getCarTypeName()
+        );
+        request.setAttribute("distance",order.getCityDistance().getDistanceKm());
+        request.setAttribute("price",1/*calculateDistance(order.getCityDistance().getDistanceKm(),order.getCarType(),order.getUser())*/);
+        factory.createOrderDao().create(order);
+    }
+
+    private int calculateDistance(int distance, CarType carType, User user) {
+        return carType.getPriceOverTheCityKm()*distance/100;//todo rewrite
     }
 }

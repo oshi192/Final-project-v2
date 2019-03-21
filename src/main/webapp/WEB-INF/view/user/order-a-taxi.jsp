@@ -25,41 +25,18 @@
 		<div class="col-md-12">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-            <c:if test="${order eq Nan}}">
-                <jsp:include page="order-form.jsp"/>
-            </c:if>
-                <p>${requestScope.errorMessage}</p>
-                <form method='POST'>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">From</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="fromCity">
-                            <c:forEach var="city" items="${requestScope.cities}" >
-                                <option value="${city.id}">${city.cityName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">to</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="toCity">
-                            <c:forEach var="city" items="${requestScope.cities}" >
-                                <option value="${city.id}">${city.cityName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Car type</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="carType">
-                            <c:forEach var="carType" items="${requestScope.carTypes}" >
-                                <option value="${carType.id}">${carType.carTypeName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1" name="comment">Comment</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                     <button type="submit" class="btn btn-primary col-md-6">Order</button>
-                </form>
+            <c:choose>
+                <c:when test="${order eq Nan}">
+                    <jsp:include page="order-form.jsp"/>
+                    <p>${requestScope.errorMessage}</p>
+                </c:when>
+                <c:when test="${order ne Nan}">
+                    <jsp:include page="order-confirm.jsp"/>
+                </c:when>
+                <c:otherwise>
+
+                </c:otherwise>
+            </c:choose>
             </div>
             <div class="col-md-3"></div>
 		</div>

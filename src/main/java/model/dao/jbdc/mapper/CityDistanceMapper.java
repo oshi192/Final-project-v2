@@ -14,7 +14,7 @@ public class CityDistanceMapper implements ObjectMapper<CityDistance> {
         cityDistance.setId(resultSet.getInt("idcity_distance"));
         cityDistance.setFromCityId(resultSet.getInt("fromcity_idcity1"));
         cityDistance.setToCityId(resultSet.getInt("tocity_idcity"));
-        return null;
+        return cityDistance;
     }
 
     @Override

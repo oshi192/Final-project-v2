@@ -142,14 +142,16 @@ public class JDBCTaxiDao implements TaxiDao {
     @Override
     public Taxi findByStatus(int status) {
         logger.info("find by status: "+status);
-        Taxi taxi;
+        Taxi taxi=null;
         String query = ResourceBundleManager.getSqlString(ResourceBundleManager.TAXI_BY_STATUS);
         try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
              PreparedStatement st = connection.prepareStatement(query)) {
             st.setInt(1, status);
             ResultSet resultSet = st.executeQuery();
             logger.info(st);
-                taxi =mapper.extractFromResultSet(resultSet);
+            if(resultSet.next()) {
+                taxi = mapper.extractFromResultSet(resultSet);
+            }
         } catch (SQLException e) {
             throw new RuntimeException();
         }

@@ -3,6 +3,7 @@ package model.dao.jbdc;
 import model.dao.CityDistanceDao;
 import model.dao.entity.CityDistance;
 import model.dao.jbdc.mapper.CityDistanceMapper;
+import org.apache.log4j.Logger;
 import util.ResourceBundleManager;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JDBCCityDistanceDao implements CityDistanceDao {
+    private static Logger logger = Logger.getLogger(JDBCCityDistanceDao.class);
     private CityDistanceMapper mapper = new CityDistanceMapper();
 
     @Override
@@ -51,14 +53,21 @@ public class JDBCCityDistanceDao implements CityDistanceDao {
 
     @Override
     public CityDistance findByCityIds(int fromCityId, int toCityId) {
+
         CityDistance cityDistance = null;
         String query = ResourceBundleManager.getSqlString(ResourceBundleManager.CITYDISTANCE_BY_IDS);
+        logger.info("findByCityIds: "+fromCityId+" "+toCityId+" "+query);
         try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
              PreparedStatement st = connection.prepareStatement(query)) {
-            ResultSet resultSet = st.executeQuery();
+            logger.info("before"+st);
             st.setInt(1,fromCityId);
             st.setInt(2,toCityId);
-            cityDistance = mapper.extractFromResultSet(resultSet);
+            logger.info("after"+st);
+            ResultSet resultSet = st.executeQuery();
+            if(resultSet.next()){
+                logger.info(resultSet);
+                cityDistance = mapper.extractFromResultSet(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

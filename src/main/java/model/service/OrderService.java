@@ -7,6 +7,7 @@ import model.dao.entity.Order;
 import model.dao.entity.Taxi;
 import model.dao.entity.User;
 import model.dto.OrderDTO;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class OrderService implements GenericService<Order> {
     private DaoFactory factory = DaoFactory.getInstance();
+    private  static Logger logger = Logger.getLogger(OrderService.class);
     @Override
     public List<Order> find(int currentPage, int recordsPerPage) {
         return null;
@@ -25,6 +27,7 @@ public class OrderService implements GenericService<Order> {
     }
 
     public OrderDTO createOrderFromRequest(HttpServletRequest request) throws TaxiNotFoundException {
+        logger.info("createOrderFromRequest ");
         String comment = request.getParameter("comment");
         int toCityId = Integer.parseInt(request.getParameter("toCity"));
         int fromCityId = Integer.parseInt(request.getParameter("fromCity"));
@@ -32,8 +35,10 @@ public class OrderService implements GenericService<Order> {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setUser((User)request.getSession().getAttribute("user"));
         CityDistance cityDistance = factory.createCityDistanceDao().findByCityIds(fromCityId,toCityId);
+        logger.info("found cityDistance : "+cityDistance);
         orderDTO.setCityDistance(cityDistance);
         Taxi taxi = factory.createTaxiDao().findByStatus(1);
+        logger.info("found taxi : "+taxi);
         if(taxi==null){
             throw new TaxiNotFoundException("Sorry but there are no free taxi");
         }

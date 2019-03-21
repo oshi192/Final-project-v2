@@ -15,7 +15,7 @@ public class TaxiMapper  implements ObjectMapper<Taxi> {
         taxi.setId(resultSet.getInt("idtaxi"));
         taxi.setIdcarType(resultSet.getInt("carType_idCarType"));
         taxi.setIdtaxiStatus(resultSet.getInt("status_idstatus"));
-        taxi.setDescription(resultSet.getString("descryption"));
+        taxi.setDescription(resultSet.getString("description"));
 
         return taxi;
     }
