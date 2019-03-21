@@ -7,6 +7,8 @@ public class ResourceBundleManager {
     public static final String TAXI_ALL_JOIN = "taxi-all-join";
     public static final String TAXI_ALL = "taxi-all";
     public static final String TAXI_COUNT = "taxi-count";
+    public static final String TAXI_BY_STATUS = "taxi-by-status";
+    public static final String TAXI_CREATE = "taxi-create";
 
     public static final String CARTYPE_ALL = "cartype-all";
     public static final String CARTYPE_BY_CARTYPENAME = "cartype-by-cartypename";
@@ -16,10 +18,17 @@ public class ResourceBundleManager {
     public static final String USER_ALL = "user-all";
 
     public static final String ORDER_COUNT = "order-count";
+    public static final String ORDER_CREATE = "order-create";
     public static final String ORDER_ALL_BY_USER_ID = "order-all-by-userid";
     public static final String ORDER_ALL_BY_USER_ID_PAGGINATE = "order-all-by-userid-paginate";
+    public static final String ORDER_ALL_BY_USER_ID_PAGGINATE_JOIN = "order-all-by-userid-paginate-join";
+
 
     public static final String DISCOUNT_COUNT = "discount-count";
+
+    public static final String CITY_ALL = "city-all";
+
+    public static final String CITYDISTANCE_BY_IDS = "citydistance-by-ids";
 
     private static final String BUNDLE_NAME_MESSAGE = "message";
     private static final String BUNDLE_NAME_CONFIG = "";
@@ -31,6 +40,7 @@ public class ResourceBundleManager {
     public static final String PAGE_REGISTER_PATH = "PAGE_REGISTER_PATH";
     public static final String PAGE_TAXIS_PATH = "PAGE_TAXIS_PATH";
     public static final String PAGE_USER_HISTORY_PATH = "PAGE_USER_HISTORY_PATH";
+    public static final String PAGE_ORDER_A_TAXI = "PAGE_ORDER_A_TAXI";
 
 
     public static final String USER_BY_ID = "user-findById";

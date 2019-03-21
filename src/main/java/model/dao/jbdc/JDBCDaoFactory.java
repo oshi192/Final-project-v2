@@ -1,13 +1,12 @@
 package model.dao.jbdc;
 
-import model.dao.CarTypeDao;
-import model.dao.DaoFactory;
-import model.dao.TaxiDao;
-import model.dao.UserDao;
+import model.dao.*;
+import model.dao.entity.City;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JDBCDaoFactory extends DaoFactory {
 
@@ -25,5 +24,22 @@ public class JDBCDaoFactory extends DaoFactory {
     public TaxiDao createTaxiDao() {
         return new JDBCTaxiDao();
     }
+
+    @Override
+    public OrderDao createOrderDao() {
+        return new JDBCOrderDao();
+    }
+
+    @Override
+    public CityDao createCityDao() {
+        return new JDBCCityDao();
+    }
+
+    @Override
+    public CityDistanceDao createCityDistanceDao() {
+        return new JDBCCityDistanceDao() {
+        };
+    }
+
 
 }

@@ -8,8 +8,9 @@ public abstract class DaoFactory {
     public abstract UserDao createUserDao();
     public abstract CarTypeDao createCarTypeDao();
     public abstract TaxiDao createTaxiDao();
-    //public abstract AssignmentDao createAssignmentDao();
-    //public abstract CarDao createCarDao();
+    public abstract OrderDao createOrderDao();
+    public abstract CityDao createCityDao();
+    public abstract CityDistanceDao createCityDistanceDao();
 
     public static DaoFactory getInstance() {
         if(daoFactory == null) {
@@ -21,4 +22,5 @@ public abstract class DaoFactory {
         }
         return daoFactory;
     }
+
 }

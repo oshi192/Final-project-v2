@@ -21,3 +21,8 @@
                           carTypes
                      </a>
                 </li>
+                <li>
+                     <a href="${pageContext.request.contextPath}/taxi/order">
+                        call a taxi
+                     </a>
+                </li>

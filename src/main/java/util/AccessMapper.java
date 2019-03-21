@@ -30,13 +30,15 @@ public class AccessMapper {
                 "",
                 "logout",
                 "/taxi",
-                "history"
+                "history",
+                "order"
         ));
         rights.put("ADMIN",Arrays.asList(
                 "",
                 "logout",
                 "taxis",
-                "/taxi"
+                "/taxi",
+                "order"
         ));
         return rights;
     }

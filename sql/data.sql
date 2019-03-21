@@ -25,13 +25,13 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`users` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`discounts` (
-  `iddiscounts` INT NOT NULL AUTO_INCREMENT,
+  `idshares` INT NOT NULL AUTO_INCREMENT,
   `sum_with_usersDiscount` TINYINT(1) NOT NULL,
   `text` VARCHAR(45) NOT NULL,
   `startdate` DATE NOT NULL,
   `enddate` DATE NOT NULL,
   `author_id` INT NOT NULL,
-  PRIMARY KEY (`iddiscounts`),
+  PRIMARY KEY (`idshares`),
   INDEX `fk_discounts_users1_idx` (`author_id` ASC),
   CONSTRAINT `fk_discounts_users1`
     FOREIGN KEY (`author_id`)
@@ -83,15 +83,13 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`orderStatus` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`city` (
-  `idcity` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `idcity` INT NOT NULL AUTO_INCREMENT,
+  `city_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcity`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`city_distance` (
   `idcity_distance` INT NOT NULL AUTO_INCREMENT,
-  `id_from_city` INT NOT NULL,
-  `id_to_city` VARCHAR(45) NOT NULL,
   `distance_km` INT NOT NULL,
   `tocity_idcity` INT NOT NULL,
   `fromcity_idcity1` INT NOT NULL,
@@ -110,10 +108,9 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`city_distance` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
 CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
   `idorder` INT NOT NULL AUTO_INCREMENT,
-  `startPoint` VARCHAR(45) NOT NULL,
-  `endPoint` VARCHAR(45) NOT NULL,
   `order_time` VARCHAR(45) NOT NULL,
   `user_iduser` INT NOT NULL,
   `carType_idCarType` INT NOT NULL,
@@ -134,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_carType1`
     FOREIGN KEY (`carType_idCarType`)
-    REFERENCES `mydb`.`carType` (`idCarType`)
+    REFERENCES `taxi_services`.`carType` (`idCarType`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_orderStatus1`
@@ -209,17 +206,40 @@ commit;
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
+insert into `taxi_services`.`city` values(DEFAULT,'Vynnicia');
+insert into `taxi_services`.`city` values(DEFAULT,'Kyiv');
+insert into `taxi_services`.`city` values(DEFAULT,'Odessa');
+insert into `taxi_services`.`city` values(DEFAULT,'Lviv');
+insert into `taxi_services`.`city` values(DEFAULT,'Kharkiv');
 commit;
 
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,1,2);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,1,3);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,1,4);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,1,5);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,2,1);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,2,3);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,2,4);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,2,5);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,3,1);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,3,2);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,3,4);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,3,5);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,4,1);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,4,2);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,4,3);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,4,5);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,5,1);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,5,2);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,5,3);
+insert into `taxi_services`.`city_distance` values(DEFAULT,100,5,4);
 commit;
 
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`order` values(DEFAULT,'sp', 'ep', '2018-12-08',1,1,'someComent',1,null);
+insert into `taxi_services`.`order` values(DEFAULT,'2018-01-01',1, 1,'someComent',1,1,1);
 commit;

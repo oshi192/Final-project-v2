@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 public class Order {
     private int id;
     private LocalDateTime time;
-    private String startPoint;
-    private String endPoint;
     private String comment;
-    private String orderTime;
+    private int cityDistanceId;
     private int carTypeId;
     private int userId;
     private int taxiId;

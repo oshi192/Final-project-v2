@@ -25,7 +25,7 @@ public class JDBCTaxiDao implements TaxiDao {
 
     @Override
     public Taxi create(Taxi entity) {
-        final String queryInsertTaxi = ResourceBundleManager.getSqlString("taxi-create");
+        final String queryInsertTaxi = ResourceBundleManager.getSqlString(ResourceBundleManager.TAXI_CREATE);
         try {
             Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
             try {
@@ -137,5 +137,23 @@ public class JDBCTaxiDao implements TaxiDao {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public Taxi findByStatus(int status) {
+        logger.info("find by status: "+status);
+        Taxi taxi;
+        String query = ResourceBundleManager.getSqlString(ResourceBundleManager.TAXI_BY_STATUS);
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
+            st.setInt(1, status);
+            ResultSet resultSet = st.executeQuery();
+            logger.info(st);
+                taxi =mapper.extractFromResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        logger.info("taxi" + taxi);
+        return taxi;
     }
 }
