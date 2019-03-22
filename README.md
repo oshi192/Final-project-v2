@@ -15,13 +15,15 @@
  - Водитель: (todo может просматривать текущие запросы и принимать их)
 
 Установка
-Для установки вам понадобятся  jdk, git, maven, MySql Workbench, MySql Server : 3306.
-
-скачать репозиторий или в терминале - git clone https://github.com/oshi192/Final-project-v2
-спомощью программы mysql workbench запустите sql с sql/data.sql
-в корневой папке проекта откройте терминал и введите команду
-mvn tomcat7:run
-приложение будет доступно по ссылке http://localhost:8888/taxi
-Admin - email: admin@gmail.com Пароль: Adminpass1
-User - email: user@gmail.com Пароль: Userpass1
-(to do Driver -  email: driver@gmail.com Пароль: Driverass1)
+ - Для установки вам понадобятся  jdk, git, maven, MySql Workbench, MySql Server : 3306.
+ - Cкачать репозиторий или в терминале - ```git clone https://github.com/oshi192/Final-project-v2```
+ - с помощью программы mysql workbench запустите sql с sql/data.sql
+ - в корневой папке проекта откройте терминал и введите команду
+ - ```mvn tomcat7:run```
+ - приложение будет доступно по ссылке [http://localhost:8888/taxi](http://localhost:8888/taxi)
+ 
+ 
+ 
+ - Admin - email: admin@gmail.com Пароль: Adminpass1
+ - User - email: user@gmail.com Пароль: Userpass1
+ - (to do Driver -  email: driver@gmail.com Пароль: Driverass1)
