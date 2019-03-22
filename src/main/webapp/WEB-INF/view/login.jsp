@@ -52,9 +52,10 @@
                         </div>
                         <button type="submit" class="btn btn-success btn-block ">${msg:getMessage("login-button-login")}</button>
                     </form>
-                        <a href="${pageContext.request.contextPath}/taxi/registration">
+
+                       <form action="${pageContext.request.contextPath}/taxi/registration">
                             <button class="btn btn-danger btn-block ">${msg:getMessage("login-button-register")}</button>
-                        </a>
+                        </form>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>

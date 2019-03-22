@@ -9,6 +9,7 @@ import util.ResourceBundleManager;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
@@ -47,15 +48,12 @@ public class RoleFilter implements Filter {
         if (!enoughRights) {
             String page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_INDEX_PATH);
             logger.info("\tgo back: " + page);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-            try {
-                dispatcher.forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ((HttpServletResponse)response).sendRedirect(page);
+            logger.info("------- ending Role filtering -------");
+        }else {
+            logger.info("------- ending Role filtering -------");
+            chain.doFilter(request, response);
         }
-        logger.info("------- ending Role filtering -------");
-        chain.doFilter(request, response);
     }
 
 

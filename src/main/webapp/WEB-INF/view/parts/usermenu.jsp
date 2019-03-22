@@ -4,11 +4,21 @@
 
                 <li>
                      <a href="${pageContext.request.contextPath}/taxi/history">
-                        My HISToRy
+                        ${msg:getMessage("usermenu-travel-history")}
                      </a>
                 </li>
                 <li>
                      <a href="${pageContext.request.contextPath}/taxi/order">
-                        call a taxi
+                        ${msg:getMessage("usermenu-cal-a-taxi")}call a taxi
+                     </a>
+                </li>
+                <li>
+                     <a href="${pageContext.request.contextPath}/taxi/car-types">
+                        ${msg:getMessage("usermenu-car-types")}
+                     </a>
+                </li>
+                <li>
+                     <a href="${pageContext.request.contextPath}/taxi/discounts">
+                        ${msg:getMessage("usermenu-current-discounts")}
                      </a>
                 </li>

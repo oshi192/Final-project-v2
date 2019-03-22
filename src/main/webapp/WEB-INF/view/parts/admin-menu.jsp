@@ -3,26 +3,21 @@
 <%@ taglib prefix="msg" uri="msg" %>
                 <li>
                      <a href="${pageContext.request.contextPath}/taxi/taxis">
-                          taxis
+                          ${msg:getMessage("adminmenu-taxis")}
                      </a>
                 </li>
                 <li>
                      <a href="${pageContext.request.contextPath}/taxi/discounts">
-                          discountsList
+                          ${msg:getMessage("adminmenu-discounts")}
                      </a>
                 </li>
                 <li>
-                     <a href="${pageContext.request.contextPath}/taxi/discounts">
-                          taxiStatus
-                     </a>
-                </li>
-                <li>
-                     <a href="${pageContext.request.contextPath}/taxi/discounts">
-                          carTypes
+                     <a href="${pageContext.request.contextPath}/taxi/car-types">
+                          ${msg:getMessage("adminmenu-car-types")}
                      </a>
                 </li>
                 <li>
                      <a href="${pageContext.request.contextPath}/taxi/order">
-                        call a taxi
+                        ${msg:getMessage("adminmenu-cal-a-taxi")}
                      </a>
                 </li>

@@ -15,7 +15,12 @@ import java.util.Map;
 public class CommandLogin implements Command {
     private static Logger logger = Logger.getLogger(CommandLogin.class);
     private static LogInOutUtils utils = new LogInOutUtils();
-
+private static String PARAMETER_EMAIL ="email";
+private static String PARAMETER_PASSWORD ="password";
+private static String MSG_EMAIL_ERROR ="emailMessage";
+private static String MSG_PASSWORD_ERROR ="passwordMessage";
+private static String REDIRECT ="redirect:";
+private static String USER ="user";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -27,26 +32,26 @@ public class CommandLogin implements Command {
     }
 
     private String checkPageData(HttpServletRequest request) {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter(PARAMETER_EMAIL);
+        String password = request.getParameter(PARAMETER_PASSWORD);
         String page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_LOGIN_PATH);;
         Map<String,String> messages = new HashMap<>();
         logger.info("input strings: "+email +" "+password);
         if(email == null || email.equals("")){
-            messages.put("emailMessage","empty email!");
+            messages.put(MSG_EMAIL_ERROR,ResourceBundleManager.getMessage("login-empty-email"));
         }
         if(password == null || password.equals("")){
-            messages.put("passwordMessage","empty password!");
+            messages.put(MSG_PASSWORD_ERROR,ResourceBundleManager.getMessage("login-empty-password"));
         }
         if(messages.isEmpty()){
             User user = new JDBCDaoFactory().createUserDao().findByEmail(email);
             logger.info(""+user + email.equals(user.getEmail())+" "+ password.equals(user.getPassword()));
             if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
                 user.setPassword("");
-                request.setAttribute("user",user);
+                request.setAttribute(USER,user);
                 logIn(request, user);
                 logger.info("loggedIn! redirect to home page");
-                page = "redirect:";
+                page = REDIRECT;
             }else{
                 messages.put("inputError","wrong email or password!");
             }

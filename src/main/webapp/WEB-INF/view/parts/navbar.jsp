@@ -14,11 +14,6 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active">
-            <a href="${pageContext.request.contextPath}/all-books">
-                text1
-            </a>
-        </li>
         <c:if test="${user.role.name == 'ADMIN'}">
             <jsp:include page="admin-menu.jsp"/>
         </c:if>

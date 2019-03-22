@@ -5,9 +5,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Some Books example</title>
-
-
+        <title>${msg:getMessage("index-theme")}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
