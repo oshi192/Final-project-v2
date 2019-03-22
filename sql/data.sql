@@ -156,6 +156,7 @@ use taxi_services;
 insert into `taxi_services`.`role` values(DEFAULT,'GUEST');
 insert into `taxi_services`.`role` values(DEFAULT,'USER');
 insert into `taxi_services`.`role` values(DEFAULT,'ADMIN');
+insert into `taxi_services`.`role` values(DEFAULT,'DRIVER');
 commit;
 
 start transaction;
@@ -201,6 +202,7 @@ start transaction;
 use taxi_services;
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'REQUEST');
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'INPROGRESS');
+insert into `taxi_services`.`orderStatus` values(DEFAULT,'CONFIRMED');
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'ENDED');
 commit;
 

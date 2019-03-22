@@ -22,6 +22,6 @@
 в корневой папке проекта откройте терминал и введите команду
 mvn tomcat7:run
 приложение будет доступно по ссылке http://localhost:8888/taxi
-Admin - email: admin@gmail.com Пароль: adminPass1
-User - email: user@gmail.com Пароль: userPass1
-(to do Driver -  email: driver@gmail.com Пароль: driverPass1)
+Admin - email: admin@gmail.com Пароль: Adminpass1
+User - email: user@gmail.com Пароль: Userpass1
+(to do Driver -  email: driver@gmail.com Пароль: Driverass1)

@@ -2,6 +2,7 @@ package util;
 
 import controller.MainServlet;
 import model.dao.entity.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LogInOutUtils {
     private static ServletContext context = MainServlet.getContext();
+    private static Logger logger = Logger.getLogger(LogInOutUtils.class);
 
     public void logOut(HttpSession session) {
         Map<Integer, HttpSession> loggedUsers = getLoggedUsers();
@@ -29,6 +31,7 @@ public class LogInOutUtils {
         context.setAttribute("loggedUsers", loggedUsers);
     }
     public Map<Integer, HttpSession> getLoggedUsers() {
+
         return (ConcurrentHashMap<Integer, HttpSession>) context.getAttribute("loggedUsers");
     }
 }

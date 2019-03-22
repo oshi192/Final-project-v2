@@ -39,8 +39,8 @@ public class CommandLogin implements Command {
             messages.put("passwordMessage","empty password!");
         }
         if(messages.isEmpty()){
-            User user = new JDBCDaoFactory().createUserDao().findByEmail(email);///////////////////////////////////////////////////////////////////////////////////////////////////////////
-            logger.info(""+user + email.equals(user.getPassword())+" "+ password.equals(user.getPassword())+" " +(email.equals(user.getPassword()) & password.equals(user.getPassword())));
+            User user = new JDBCDaoFactory().createUserDao().findByEmail(email);
+            logger.info(""+user + email.equals(user.getEmail())+" "+ password.equals(user.getPassword()));
             if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
                 user.setPassword("");
                 request.setAttribute("user",user);
@@ -57,7 +57,9 @@ public class CommandLogin implements Command {
     }
 
     private void logIn(HttpServletRequest request, User user) {
+        logger.info(utils);
         Map<Integer, HttpSession> loggedUsers = utils.getLoggedUsers();
+        logger.info(loggedUsers);
         destroyPreviousSession(loggedUsers, user.getId());
         loggedUsers.put(user.getId(), request.getSession());
         utils.setLoggedUsers(loggedUsers);
