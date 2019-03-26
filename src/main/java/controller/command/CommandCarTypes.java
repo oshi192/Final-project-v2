@@ -34,7 +34,7 @@ public class CommandCarTypes implements Command {
         String add = request.getParameter("add");
         logger.info("post");
         if (add != null) {
-            addCarType(request);
+            addAndCheckCarType(request);
         }
         String remove = request.getParameter("remove");
         if (remove != null) {
@@ -44,15 +44,19 @@ public class CommandCarTypes implements Command {
 
     private void removeCarType(HttpServletRequest request) {
         String idString = request.getParameter("remove");
-        logger.info("removing with id["+idString+"]");
-        if (idString !=null) {
+        logger.info("removing with id[" + idString + "]");
+        if (idString != null) {
             CarTypeDao carTypeDao = dao.createCarTypeDao();
             carTypeDao.delete(Integer.parseInt(idString));
         }
-
     }
 
-    private void addCarType(HttpServletRequest request) {
+    /**
+     * check values and set errors messages
+     *
+     * @param request
+     */
+    private void addAndCheckCarType(HttpServletRequest request) {
         logger.info("add new");
         String carTypeName = request.getParameter("taxi-add-carTypeName");
         String priceCityKmtmp = request.getParameter("taxi-add-priceCityKm");

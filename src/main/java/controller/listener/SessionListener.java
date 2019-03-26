@@ -1,5 +1,7 @@
 package controller.listener;
 
+import util.LogInOutUtils;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -13,6 +15,6 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        //new SecurityUtility().logOut(httpSessionEvent.getSession());
+        new LogInOutUtils().logOut(httpSessionEvent.getSession());
     }
 }

@@ -9,6 +9,7 @@ public class ResourceBundleManager {
     public static final String TAXI_COUNT = "taxi-count";
     public static final String TAXI_BY_STATUS = "taxi-by-status";
     public static final String TAXI_CREATE = "taxi-create";
+    public static final String TAXI_BY_ID = "taxi-by-id";
 
     public static final String CARTYPE_ALL = "cartype-all";
     public static final String CARTYPE_BY_CARTYPENAME = "cartype-by-cartypename";

@@ -1,6 +1,7 @@
 package model.dao.jbdc;
 
 import exception.InputException;
+import exception.NotUniqueValueException;
 import exception.UserAlreadyExistException;
 import exception.UserNotFoundException;
 import model.dao.UserDao;
@@ -29,7 +30,7 @@ public class JDBCUserDao implements UserDao {
             if (resultSet.next()) {
                 return getUser(st);
             } else {
-                throw new InputException("Invalid name or password");
+                throw new UserNotFoundException("Invalid name or password");
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -39,26 +40,31 @@ public class JDBCUserDao implements UserDao {
     @Override
     public User create(User user) {
         final String queryInsertUser = ResourceBundleManager.getSqlString("user-create");
-        try {
-            Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+        try{
+            findByEmail(user.getEmail());
+            throw new NotUniqueValueException();
+        }catch(UserNotFoundException ue){
             try {
-                connection.setAutoCommit(false);
-                PreparedStatement ps = connection.prepareStatement(queryInsertUser, Statement.RETURN_GENERATED_KEYS);
-                new UserMapper().putIntoPrepareStatement(ps, user);
-                ps.executeUpdate();
-                connection.commit();
-            } catch (SQLException ex) {
+                Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
                 try {
-                    connection.rollback();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    connection.setAutoCommit(false);
+                    PreparedStatement ps = connection.prepareStatement(queryInsertUser, Statement.RETURN_GENERATED_KEYS);
+                    new UserMapper().putIntoPrepareStatement(ps, user);
+                    ps.executeUpdate();
+                    connection.commit();
+                } catch (SQLException ex) {
+                    try {
+                        connection.rollback();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    throw new UserAlreadyExistException("register.userExist");
                 }
-                throw new UserAlreadyExistException("register.userExist");
+            }catch (SQLException ex){
+                throw new RuntimeException("cannot get connection");
             }
-        }catch (SQLException ex){
-            throw new RuntimeException("cannot get connection");
+            return user;
         }
-        return user;
     }
 
     @Override

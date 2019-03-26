@@ -50,6 +50,19 @@ public class JDBCTaxiDao implements TaxiDao {
 
     @Override
     public Taxi findById(int id) {
+        final String query = ResourceBundleManager.getSqlString(ResourceBundleManager.TAXI_BY_ID);
+        try (Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+             PreparedStatement st = connection.prepareStatement(query)) {
+            st.setInt(1, id);
+                Taxi  taxi = new Taxi();
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) {
+                    taxi = mapper.extractFromResultSet(rs);
+                }
+            return taxi;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

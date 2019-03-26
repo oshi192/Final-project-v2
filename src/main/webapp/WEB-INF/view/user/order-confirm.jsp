@@ -4,32 +4,33 @@
 <h1>order<h1>
 <table class="table">
     <tbody>
-        <tr class="table-active">
-            <td>car type:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-cartype")}</td>
             <td>${carType}</td>
         </tr>
-        <tr class="table-active">
-            <td>from:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-from")}</td>
             <td>${from}</td>
         </tr>
-        <tr class="table-active">
-            <td>to:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-to")}</td>
             <td>${to}</td>
         </tr>
-        <tr class="table-active">
-            <td>distance:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-distance")}</td>
             <td>${distance}</td>
         </tr>
-        <tr class="table-active">
-            <td>car:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-car")}</td>
             <td>${order.taxi.description}</td>
         </tr>
-        <tr class="table-active">
-            <td>price:</td>
+        <tr>
+            <td>${msg:getMessage("order-confirm-price")}</td>
             <td>${price}</td>
         </tr>
-    </tbody><br>
-    <form method="POST">
-    <button type="submit" class="btn btn-primary " name ="confirm" value ="ok">confirm</button>
-    </form>
+        <tr><td><form method="POST">
+                <button type="submit" class="btn btn-primary " name ="confirm" value ="ok">confirm</button>
+                </form></td>
+                </tr>
+    </tbody>
 </table>

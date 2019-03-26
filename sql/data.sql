@@ -167,6 +167,7 @@ start transaction;
 use taxi_services;
 insert into `taxi_services`.`users` values(DEFAULT,"User", "TrueUser", "user@gmail.com",  "Userpass1", 20001, "0960969090", 2);
 insert into `taxi_services`.`users` values(DEFAULT,"Admin", "TrueAdmin", "admin@gmail.com",  "Adminpass1", 2000000, "0930969090", 3);
+insert into `taxi_services`.`users` values(DEFAULT,"Driver", "TrueDriver", "driver@gmail.com",  "Driverpass1", 2000000, "0930969090", 3);
 insert into `taxi_services`.`users` values(DEFAULT,"Vasya", "Pupkin", "vpypkin@gmail.com",  "12345678a", 0, "0970969012", 2);
 commit;
 

@@ -34,11 +34,12 @@ public class CommandRegister implements Command {
 
     private final static Logger logger = Logger.getLogger(CommandRegister.class);
     private UserService userService = new UserService();
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        if(POST_METHOD.equals(request.getMethod())){
+        if (POST_METHOD.equals(request.getMethod())) {
             return methodSome(request);//todo rename
-        }else{
+        } else {
             return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
         }
     }
@@ -47,18 +48,18 @@ public class CommandRegister implements Command {
         String page;
         User user = createUserFromRequest(request);
         Map<String, String> messages = new HashMap<>();
-        if(userService.isEmailExist(user.getEmail()) || !checkFields(request, messages,user)){
+        if (userService.isEmailExist(user.getEmail()) || !checkFields(request, messages, user)) {
             request.setAttribute("messages", messages);
             request.setAttribute("newUser", user);
             page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
-        }else{
+        } else {
             new JDBCDaoFactory().createUserDao().create(user);
             request.setAttribute("message", ResourceBundleManager.getMessage("msg-registration-successful"));
             request.removeAttribute("messages");
             page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_LOGIN_PATH);
         }
         logger.info("user from registration page: " + user.toString());
-        logger.info("page: " +page);
+        logger.info("page: " + page);
         return page;
     }
 

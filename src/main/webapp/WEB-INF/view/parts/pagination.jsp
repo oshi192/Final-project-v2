@@ -32,8 +32,7 @@
     </ul>
 </nav>
 <form method="POST">
-            <div class="form-group col-md-4">
-                <label for="selectNumPerPage">to</label>
+           <div class="form-group col-md-4">
                 <select class="form-control" id="selectNumPerPage" name="recordsPerPage">
                         <option value="5">5</option>
                         <option value="10">10</option>

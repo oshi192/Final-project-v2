@@ -31,11 +31,20 @@ public class CommandOrderATaxi implements Command {
         if (POST_METHOD.equals(request.getMethod())) {
             path = executePost(request);
         } else {
+            //request.setAttribute("confirm",null);
+            //request.setAttribute("order",null);
+            logger.info("order "+request.getParameter("order"));
             path = executeGet(request);
         }
         return path;
     }
 
+    /**
+     * get process
+     *
+     * @param request
+     * @return
+     */
     private String executeGet(HttpServletRequest request) {
         List<CarType> carTypes = carTypeService.getAll();
         List<City> cities = factory.createCityDao().findAll();
@@ -47,35 +56,51 @@ public class CommandOrderATaxi implements Command {
         return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_ORDER_A_TAXI);
     }
 
+    /**
+     * post process
+     *
+     * @param request
+     * @return
+     */
     private String executePost(HttpServletRequest request) {
         String confirm = request.getParameter("confirm");
-        logger.info("confirm:"+confirm);
-        if(confirm !=null && !confirm.isEmpty()){
-            factory.createOrderDao().create((Order)(request.getSession().getAttribute("order")));
-            request.setAttribute("confirmMSG",ResourceBundleManager.getMessage(ResourceBundleManager.MSG_ORDER_CONFIRM));
+        logger.info("confirm:" + confirm);
+        if (confirm != null && !confirm.isEmpty()) {
+            factory.createOrderDao().create((Order) (request.getSession().getAttribute("order")));
+            request.setAttribute("confirmMSG", ResourceBundleManager.getMessage(ResourceBundleManager.MSG_ORDER_CONFIRM));
             return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_INDEX_PATH);
-        }else {
-            String comment = request.getParameter("comment");
-            String toCity = request.getParameter("toCity");
-            String fromCity = request.getParameter("fromCity");
-            String carType = request.getParameter("carType");
-            try {
-                OrderDTO order = orderService.createOrderFromRequest(request);
-                if (order.getCityDistance().getToCityId() == order.getCityDistance().getFromCityId()) {
-                    throw new EqualsCityException("equals city");
-                }
-                setConfirmParameters(request);
-            } catch (TaxiNotFoundException e) {
-                request.setAttribute("errorMessage", "sorry" + e);
-            } catch (EqualsCityException e) {
-                request.setAttribute("errorMessage", "equals city!!");
-            }
-            logger.info("POST order fromCity:" + fromCity + " toCity:" + toCity + " carType:" + carType + " comment:" + comment + " " + request.getSession().getAttribute("carTypes"));
+        } else {
+            processCreateOrder(request);
             return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_ORDER_A_TAXI);
         }
+    }
+
+    void processCreateOrder(HttpServletRequest request) {
+        String comment = request.getParameter("comment");
+        String toCity = request.getParameter("toCity");
+        String fromCity = request.getParameter("fromCity");
+        String carType = request.getParameter("carType");
+        try {
+            OrderDTO order = orderService.createOrderFromRequest(request);
+            if (order.getCityDistance().getToCityId() == order.getCityDistance().getFromCityId()) {
+                throw new EqualsCityException("equals city");
+            }
+            setConfirmParameters(request);
+        } catch (TaxiNotFoundException e) {
+            request.setAttribute("errorMessage", "sorry" + e);
+        } catch (EqualsCityException e) {
+            request.setAttribute("errorMessage", "equals city!!");
+        }
+        logger.info("POST order fromCity:" + fromCity + " toCity:" + toCity + " carType:" + carType + " comment:" + comment + " " + request.getSession().getAttribute("carTypes"));
 
     }
 
+    /**
+     * setting parameters from session instead of searching in database
+     *
+     * @param request
+     * @throws TaxiNotFoundException if there are no free taxis;
+     */
     private void setConfirmParameters(HttpServletRequest request) throws TaxiNotFoundException {
         OrderDTO order = orderService.createOrderFromRequest(request);
         request.setAttribute("order", order);
@@ -100,14 +125,15 @@ public class CommandOrderATaxi implements Command {
                 .get()
                 .getCarTypeName()
         );
-        request.setAttribute("distance",order.getCityDistance().getDistanceKm());
-        request.setAttribute("price",calculateDistance(order.getCityDistance().getDistanceKm(),order.getCarType(),order.getUser())+" uah");
-        request.getSession().setAttribute("order",order);//
+        request.setAttribute("distance", order.getCityDistance().getDistanceKm());
+        request.setAttribute("price",
+                calculateDistance(order.getCityDistance().getDistanceKm(), order.getCarType(), order.getUser()) / 100 + " uah");
+        request.getSession().setAttribute("order", order);//
     }
 
     private int calculateDistance(int distance, CarType carType, User user) {
-        int price = carType.getPriceOverTheCityKm()*distance;
+        int price = carType.getPriceOverTheCityKm() * distance;
         Discount discount = new DiscountService().findAllByEndDate();
-        return new OrderService().calculatePrice(price,user.getSum(),discount);
+        return new OrderService().calculatePrice(price, user.getSum(), discount);
     }
 }

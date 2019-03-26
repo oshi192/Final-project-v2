@@ -45,7 +45,7 @@
 				<c:if test="${user.role.name == 'ADMIN'}">
 				    <tr class="table-active">
                         <td></td>
-                        <td><input class="form-control" type="text" placeholder="carTypeName" name="taxi-add-carTypeName">}</td>
+                        <td><input class="form-control" type="text" placeholder="carTypeName" name="taxi-add-carTypeName"></td>
                         <td><input class="form-control" type="text" placeholder="priceCityKm" name="taxi-add-priceCityKm"></td>
                         <td><input class="form-control" type="text" placeholder="priceOverTheCityKm" name="taxi-add-priceOverTheCityKm"></td>
                         <td><input class="form-control" type="text" placeholder="priceWaitingTimeMinute" name="taxi-add-priceWaitingTimeMinute"></td>

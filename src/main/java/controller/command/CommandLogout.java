@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CommandLogout implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        new LogInOutUtils().logOut(request);
+        new LogInOutUtils().logOut(request.getSession());
         return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_INDEX_PATH);
     }
 }

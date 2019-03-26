@@ -9,7 +9,6 @@ import util.ResourceBundleManager;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
@@ -21,9 +20,6 @@ import java.util.Objects;
 public class RoleFilter implements Filter {
     private static final String USER_ATTR = "user";
     private final static Logger logger = Logger.getLogger(RoleFilter.class);
-
-    public RoleFilter() {
-    }
 
     public void destroy() {
     }
@@ -37,10 +33,6 @@ public class RoleFilter implements Filter {
         User user = (User) session.getAttribute(USER_ATTR);
         Role role;
 
-        //user = new User();user.setId(1);user.setRole(new Role(2, "USER"));
-        user = new User();user.setId(1);user.setRole(new Role(3,"ADMIN"));
-        request.setAttribute("user", user);
-        ((HttpServletRequest) request).getSession().setAttribute("user", user);
         if (Objects.isNull(user)) {
             role = new Role(1, "GUEST");
         } else {
@@ -53,7 +45,12 @@ public class RoleFilter implements Filter {
         if (!enoughRights) {
             String page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_INDEX_PATH);
             logger.info("\tgo back: " + page);
-            request.getRequestDispatcher(page).forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            try {
+                dispatcher.forward(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             logger.info("------- ending Role filtering -------");
         } else {
             logger.info("------- ending Role filtering -------");
