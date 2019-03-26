@@ -4,6 +4,7 @@ import model.service.GenericService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class Pagination {
     private static Logger logger = Logger.getLogger(Pagination.class);
@@ -24,7 +25,7 @@ public class Pagination {
         if (currentPage > nOfPages) currentPage = nOfPages;
         if (currentPage < 1) currentPage = 1;
         request.setAttribute("entity", service.find(currentPage, recordsPerPage));
-
+        logger.info(service.find(currentPage, recordsPerPage));
         logger.info("pagination after: nOfPages-" + nOfPages + "currentPage-" + cp + " recordsPerPage-" + rp);
         request.setAttribute("noOfPages", nOfPages);
         request.setAttribute("currentPage", currentPage);

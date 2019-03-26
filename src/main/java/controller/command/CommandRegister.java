@@ -48,14 +48,14 @@ public class CommandRegister implements Command {
         User user = createUserFromRequest(request);
         Map<String, String> messages = new HashMap<>();
         if(userService.isEmailExist(user.getEmail()) || !checkFields(request, messages,user)){
+            request.setAttribute("messages", messages);
+            request.setAttribute("newUser", user);
+            page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
+        }else{
             new JDBCDaoFactory().createUserDao().create(user);
             request.setAttribute("message", ResourceBundleManager.getMessage("msg-registration-successful"));
             request.removeAttribute("messages");
             page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_LOGIN_PATH);
-        }else{
-            request.setAttribute("messages", messages);
-            request.setAttribute("newUser", user);
-            page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
         }
         logger.info("user from registration page: " + user.toString());
         logger.info("page: " +page);

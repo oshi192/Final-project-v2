@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS taxi_services;
-
+CREATE DATABASE IF NOT EXISTS taxi_services
+/*!40100 DEFAULT CHARACTER SET utf8 */;
 CREATE TABLE IF NOT EXISTS `taxi_services`.`role` (
   `idrole` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
@@ -25,13 +25,15 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`users` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`discounts` (
-  `idshares` INT NOT NULL AUTO_INCREMENT,
+  `iddiscounts` INT NOT NULL AUTO_INCREMENT,
   `sum_with_usersDiscount` TINYINT(1) NOT NULL,
   `text` VARCHAR(45) NOT NULL,
+  `text_uk` VARCHAR(45) NOT NULL,
   `startdate` DATE NOT NULL,
   `enddate` DATE NOT NULL,
   `author_id` INT NOT NULL,
-  PRIMARY KEY (`idshares`),
+  `percent` INT NOT NULL,
+  PRIMARY KEY (`iddiscounts`),
   INDEX `fk_discounts_users1_idx` (`author_id` ASC),
   CONSTRAINT `fk_discounts_users1`
     FOREIGN KEY (`author_id`)
@@ -61,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`taxi` (
   `carType_idCarType` INT NOT NULL,
   `status_idstatus` INT NOT NULL,
   `description` VARCHAR(45) NOT NULL,
+  `description_uk` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idtaxi`),
   INDEX `fk_taxi_carType1_idx` (`carType_idCarType` ASC),
   INDEX `fk_taxi_status1_idx` (`status_idstatus` ASC),
@@ -78,13 +81,14 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`orderStatus` (
   `idorderStatus` INT NOT NULL AUTO_INCREMENT,
-  `orderStatuscol` VARCHAR(45) NOT NULL,
+  `orderStatusName` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idorderStatus`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `taxi_services`.`city` (
   `idcity` INT NOT NULL AUTO_INCREMENT,
   `city_name` VARCHAR(45) NOT NULL,
+  `city_name_uk` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcity`))
 ENGINE = InnoDB;
 
@@ -116,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `taxi_services`.`order` (
   `carType_idCarType` INT NOT NULL,
   `comment` VARCHAR(255) NULL,
   `orderStatus_idorderStatus` INT NOT NULL,
-  `taxi_idtaxi` INT NOT NULL,
+  `taxi_idtaxi` INT,
   `city_distance_idcity_distance` INT NOT NULL,
   PRIMARY KEY (`idorder`, `user_iduser`),
   INDEX `fk_order_user_idx` (`user_iduser` ASC),
@@ -168,8 +172,14 @@ commit;
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`discounts` values(DEFAULT, true, "some text", '2018-12-08', '2019-01-08',2);
-insert into `taxi_services`.`discounts` values(DEFAULT, false, "some text2", '2010-02-01', '2019-04-01',2);
+insert into `taxi_services`.`discounts` values(DEFAULT, true,
+    "some text",
+    "якийсь текст",
+    '2018-12-08', '2019-01-08',2,10);
+insert into `taxi_services`.`discounts` values(DEFAULT, false,
+    "some text2",
+    "якийсь текст2",
+    '2010-02-01', '2019-04-01',2,5);
 commit;
 
 start transaction;
@@ -191,28 +201,27 @@ commit;
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`taxi` values(DEFAULT, 1,  1, 'mersedes a092ab12');
-insert into `taxi_services`.`taxi` values(DEFAULT, 1, 2, "audi d092ad21");
-insert into `taxi_services`.`taxi` values(DEFAULT, 1, 1, "wv a092ab12");
-insert into `taxi_services`.`taxi` values(DEFAULT, 1, 3, "lanos a092ab12");
-insert into `taxi_services`.`taxi` values(DEFAULT, 1, 4, "reno a092ab12");
+insert into `taxi_services`.`taxi` values(DEFAULT, 1,  1, 'mersedes a092ab12', 'мерседес a092ab12');
+insert into `taxi_services`.`taxi` values(DEFAULT, 1, 2, "audi d092ad21", "ауді d092ad21");
+insert into `taxi_services`.`taxi` values(DEFAULT, 1, 1, "wv a092ab12", "wv a092ab12");
+insert into `taxi_services`.`taxi` values(DEFAULT, 1, 3, "lanos a092ab12", "ланос a092ab12");
+insert into `taxi_services`.`taxi` values(DEFAULT, 1, 4, "reno a092ab12", "рено a092ab12");
 commit;
 
 start transaction;
 use taxi_services;
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'REQUEST');
-insert into `taxi_services`.`orderStatus` values(DEFAULT,'INPROGRESS');
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'CONFIRMED');
 insert into `taxi_services`.`orderStatus` values(DEFAULT,'ENDED');
 commit;
 
 start transaction;
 use taxi_services;
-insert into `taxi_services`.`city` values(DEFAULT,'Vynnicia');
-insert into `taxi_services`.`city` values(DEFAULT,'Kyiv');
-insert into `taxi_services`.`city` values(DEFAULT,'Odessa');
-insert into `taxi_services`.`city` values(DEFAULT,'Lviv');
-insert into `taxi_services`.`city` values(DEFAULT,'Kharkiv');
+insert into `taxi_services`.`city` values(DEFAULT,'Vynnicia','Вінниця');
+insert into `taxi_services`.`city` values(DEFAULT,'Kyiv','Київ');
+insert into `taxi_services`.`city` values(DEFAULT,'Odessa','Одеса');
+insert into `taxi_services`.`city` values(DEFAULT,'Lviv','Львів');
+insert into `taxi_services`.`city` values(DEFAULT,'Kharkiv','Харків');
 commit;
 
 

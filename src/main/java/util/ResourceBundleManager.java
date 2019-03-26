@@ -13,6 +13,9 @@ public class ResourceBundleManager {
     public static final String CARTYPE_ALL = "cartype-all";
     public static final String CARTYPE_BY_CARTYPENAME = "cartype-by-cartypename";
     public static final String CARTYPE_COUNT = "cartype-count";
+    public static final String CARTYPE_CREATE = "cartype-create";
+    public static final String CARTYPE_DELETE = "cartype-delete";
+    public static final String CARTYPE_BY_ID = "cartype-by-id";
 
     public static final String USER_COUNT = "user-count";
     public static final String USER_ALL = "user-all";
@@ -25,10 +28,20 @@ public class ResourceBundleManager {
 
 
     public static final String DISCOUNT_COUNT = "discount-count";
+    public static final String DISCOUNT_DELETE = "discount-delete";
+    public static final String DISCOUNT_CREATE = "discount-create";
+    public static final String DISCOUNT_ALL = "discounts-all";
+    public static final String DISCOUNT_BY_TIME = "discount-by-date";
+    public static final String DISCOUNT_ERROR_START_TIME = "check-statrtime";
+    public static final String DISCOUNT_ERROR_END_TIME = "check-endTime";
+    public static final String DISCOUNT_ERROR_TEXT = "check-text";
+    public static final String DISCOUNT_ERROR_TEXT_UK = "check-text_uk";
 
     public static final String CITY_ALL = "city-all";
 
     public static final String CITYDISTANCE_BY_IDS = "citydistance-by-ids";
+    public static final String MSG_ORDER_CONFIRM = "msg-confirm";
+
 
     private static final String BUNDLE_NAME_MESSAGE = "message";
     private static final String BUNDLE_NAME_CONFIG = "";
@@ -40,7 +53,10 @@ public class ResourceBundleManager {
     public static final String PAGE_REGISTER_PATH = "PAGE_REGISTER_PATH";
     public static final String PAGE_TAXIS_PATH = "PAGE_TAXIS_PATH";
     public static final String PAGE_USER_HISTORY_PATH = "PAGE_USER_HISTORY_PATH";
+    public static final String PAGE_CARTYPES = "PAGE_CARTYPES";
     public static final String PAGE_ORDER_A_TAXI = "PAGE_ORDER_A_TAXI";
+    public static final String PAGE_DISCOUNT = "PAGE_DISCOUNT";
+    public static final String PAGE_TAKE_ORDER = "PAGE_TAKE_ORDER";
 
 
     public static final String USER_BY_ID = "user-findById";

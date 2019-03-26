@@ -28,8 +28,8 @@
             <td>price:</td>
             <td>${price}</td>
         </tr>
-    </tbody>
+    </tbody><br>
     <form method="POST">
-    <button type="submit" class="btn btn-primary ">confirm</button>
+    <button type="submit" class="btn btn-primary " name ="confirm" value ="ok">confirm</button>
     </form>
 </table>

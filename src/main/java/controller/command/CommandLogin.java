@@ -63,11 +63,11 @@ private static String USER ="user";
 
     private void logIn(HttpServletRequest request, User user) {
         logger.info(utils);
-        Map<Integer, HttpSession> loggedUsers = utils.getLoggedUsers();
+        Map<Integer, HttpSession> loggedUsers = utils.getLoggedUsers(request);
         logger.info(loggedUsers);
         destroyPreviousSession(loggedUsers, user.getId());
         loggedUsers.put(user.getId(), request.getSession());
-        utils.setLoggedUsers(loggedUsers);
+        utils.setLoggedUsers(loggedUsers,request);
         sessionSetup(request, user);
     }
 

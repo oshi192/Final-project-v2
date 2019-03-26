@@ -9,15 +9,13 @@ import model.dao.entity.User;
 
 import java.util.List;
 
-public class CarTypeService implements GenericService<User>{
+public class CarTypeService implements GenericService<CarType>{
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
     public List<CarType> getAll() {
-        try (CarTypeDao dao = daoFactory.createCarTypeDao()) {
+        CarTypeDao dao = daoFactory.createCarTypeDao();
      return dao.findAll();
-        } catch (UserAlreadyExistException ex) {
-            return null;
-        }
+
     }
 
     public User registerNewUser(User user) {
@@ -27,8 +25,9 @@ public class CarTypeService implements GenericService<User>{
     }
 
     @Override
-    public List<User> find(int currentPage, int recordsPerPage) {
-        return null;
+    public List<CarType> find(int currentPage, int recordsPerPage) {
+        CarTypeDao dao = daoFactory.createCarTypeDao();
+        return dao.findAll();
     }
 
     @Override

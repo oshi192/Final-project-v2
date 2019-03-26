@@ -1,5 +1,7 @@
 <%@ page language="java" isErrorPage="true"  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.text.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="msg" uri="msg" %>
 <html lang="en">
 
 <!DOCTYPE html>
@@ -45,8 +47,8 @@
 			<div class="notfound-404">
 				<h1>404</h1>
 			</div>
-			<h2>Page Not Found</h2>
-			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+			<h2>${msg:getMessage("error-page-label-404")}</h2>
+			<p>${msg:getMessage("error-page-description-404")}</p>
 			<p><h2><%= exception %></h2></p>
 			<a href="${pageContext.request.contextPath}/taxi">Homepage</a>
 		</div>

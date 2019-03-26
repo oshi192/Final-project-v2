@@ -41,5 +41,10 @@ public class JDBCDaoFactory extends DaoFactory {
         };
     }
 
+    @Override
+    public DiscountDao createDiscountDao() {
+        return new JDBCDiscountDao();
+    }
+
 
 }

@@ -96,13 +96,13 @@ public class JDBCTaxiDao implements TaxiDao {
 
     @Override
     public void delete(int id) {
-        final String queryInsertTaxi = ResourceBundleManager.getSqlString("taxi-delete");
+        final String query = ResourceBundleManager.getSqlString("taxi-delete");
         try {
             Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
 
             try {
                 connection.setAutoCommit(false);
-                PreparedStatement ps = connection.prepareStatement(queryInsertTaxi, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, id);
                 ps.executeUpdate();
                 connection.commit();

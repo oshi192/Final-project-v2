@@ -20,12 +20,19 @@
                     <jsp:include page="parts/navbar.jsp"/>
 
                     <div class="jumbotron">
-                        <h2>
-                            ${msg:getMessage("index-theme")}
-                        </h2>
-                        <p>
-                            ${msg:getMessage("index-text")}
-                        </p>
+                        <c:choose>
+                            <c:when test="${requestScope.confirmMSG != Nan}">
+                                          <p>${requestScope.confirmMSG}</p>
+                              </c:when>
+                              <c:otherwise>
+                              <h2>
+                                  ${msg:getMessage("index-theme")}
+                              </h2>
+                              <p>
+                                  ${msg:getMessage("index-text")}
+                              </p>
+                              </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,10 @@ public class AccessMapper {
     private final static Logger logger = Logger.getLogger(AccessMapper.class);
     private static HashMap<String, List<String>> rights;
     private static AccessMapper instance;
-
+    private static String POST="POST";
+    private static String GET="GET";
+    //private static String POST="POST";
+    //private static String POST="POST";
     private AccessMapper() {
         rights = inializeRights();
     }
@@ -24,21 +27,36 @@ public class AccessMapper {
                 "",
                 "login",
                 "registration",
-                "/taxi"
+                "/taxi",
+                "discounts"
         ));
         rights.put("USER",Arrays.asList(
                 "",
                 "logout",
                 "/taxi",
+                "car-types",
                 "history",
-                "order"
+                "order",
+                "discounts"
         ));
         rights.put("ADMIN",Arrays.asList(
                 "",
                 "logout",
                 "taxis",
                 "/taxi",
-                "order"
+                "car-types",
+                "order",
+                "discounts"
+        ));
+        rights.put("DRIVER",Arrays.asList(
+                "",
+                "logout",
+                "taxis",
+                "/taxi",
+                "car-types",
+                "order",
+                "discounts",
+                "take-order"
         ));
         return rights;
     }
@@ -57,6 +75,6 @@ public class AccessMapper {
             return true;
         }
         logger.info("check rights for role : "+role+" with page : "+page +" result : "+rights.get(role).contains(page));
-        return rights.get(role).contains(page);
+        return rights.get(role).contains(page) ;
     }
 }

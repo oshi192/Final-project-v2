@@ -11,6 +11,7 @@ public abstract class DaoFactory {
     public abstract OrderDao createOrderDao();
     public abstract CityDao createCityDao();
     public abstract CityDistanceDao createCityDistanceDao();
+    public abstract DiscountDao createDiscountDao();
 
     public static DaoFactory getInstance() {
         if(daoFactory == null) {

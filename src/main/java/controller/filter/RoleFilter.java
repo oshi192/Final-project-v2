@@ -36,6 +36,11 @@ public class RoleFilter implements Filter {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(USER_ATTR);
         Role role;
+
+        //user = new User();user.setId(1);user.setRole(new Role(2, "USER"));
+        user = new User();user.setId(1);user.setRole(new Role(3,"ADMIN"));
+        request.setAttribute("user", user);
+        ((HttpServletRequest) request).getSession().setAttribute("user", user);
         if (Objects.isNull(user)) {
             role = new Role(1, "GUEST");
         } else {
@@ -48,9 +53,9 @@ public class RoleFilter implements Filter {
         if (!enoughRights) {
             String page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_INDEX_PATH);
             logger.info("\tgo back: " + page);
-            ((HttpServletResponse)response).sendRedirect(page);
+            request.getRequestDispatcher(page).forward(request, response);
             logger.info("------- ending Role filtering -------");
-        }else {
+        } else {
             logger.info("------- ending Role filtering -------");
             chain.doFilter(request, response);
         }

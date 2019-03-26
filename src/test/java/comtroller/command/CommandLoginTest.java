@@ -32,7 +32,7 @@ public class CommandLoginTest {
 
     @Before
     public void setUp() {
-        Mockito.when(logInOutUtils.getLoggedUsers()).thenReturn(users);
+        Mockito.when(logInOutUtils.getLoggedUsers(request)).thenReturn(users);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(request.getMethod()).thenReturn("POST");
         Mockito.when(context.getAttribute("loggedUsers")).thenReturn(users);
@@ -43,7 +43,7 @@ public class CommandLoginTest {
 
     @Test
     public void process() {
-        //String page = commandLogin.execute(request, response);
+//        String page = commandLogin.execute(request, response);
         //assertEquals("redirect:", page);
     }
 }

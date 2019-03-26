@@ -16,7 +16,8 @@ public class CommandMannager {
         commands.put("taxis", new CommandAdminTaxis());
         commands.put("history", new CommandUserHistory());
         commands.put("order", new CommandOrderATaxi());
-
+        commands.put("car-types", new CommandCarTypes());
+        commands.put("discounts", new CommandDiscount());
     }
 
     private CommandMannager() {

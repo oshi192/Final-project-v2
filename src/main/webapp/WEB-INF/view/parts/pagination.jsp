@@ -36,8 +36,8 @@
                 <label for="selectNumPerPage">to</label>
                 <select class="form-control" id="selectNumPerPage" name="recordsPerPage">
                         <option value="5">5</option>
-                        <option value="10">5</option>
-                        <option value="15">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
