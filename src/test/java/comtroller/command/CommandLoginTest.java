@@ -1,8 +1,10 @@
 package comtroller.command;
 
+import controller.MainServlet;
 import controller.command.CommandLogin;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import util.LogInOutUtils;
 
@@ -19,6 +21,7 @@ public class CommandLoginTest {
     public void execute() {
     }
 
+
     private CommandLogin commandLogin = new CommandLogin();
     private HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
     private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
@@ -26,13 +29,12 @@ public class CommandLoginTest {
     private ServletContext context = Mockito.mock(ServletContext.class);
     private ConcurrentHashMap<Integer, HttpSession> users = new ConcurrentHashMap<>();
     private LogInOutUtils logInOutUtils = Mockito.mock(LogInOutUtils.class);
-
-
+    private MainServlet mainServlet = Mockito.mock(MainServlet.class);
 
 
     @Before
     public void setUp() {
-        Mockito.when(logInOutUtils.getLoggedUsers(request)).thenReturn(users);
+        Mockito.when(logInOutUtils.getLoggedUsers()).thenReturn(users);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(request.getMethod()).thenReturn("POST");
         Mockito.when(context.getAttribute("loggedUsers")).thenReturn(users);
@@ -43,7 +45,8 @@ public class CommandLoginTest {
 
     @Test
     public void process() {
-//        String page = commandLogin.execute(request, response);
+
+       // String page = commandLogin.execute(request, response);
         //assertEquals("redirect:", page);
     }
 }

@@ -28,6 +28,7 @@ public class JDBCUserDao implements UserDao {
             logger.info(query +"\n"+ st);
             ResultSet resultSet = st.executeQuery();
             if (resultSet.next()) {
+                logger.info("by email: "+email+" "+getUser(st));
                 return getUser(st);
             } else {
                 throw new UserNotFoundException("Invalid name or password");
@@ -44,12 +45,12 @@ public class JDBCUserDao implements UserDao {
             findByEmail(user.getEmail());
             throw new NotUniqueValueException();
         }catch(UserNotFoundException ue){
-            try {
-                Connection connection = ConnectionPoolHolder.getDataSource().getConnection();
+            try(Connection connection = ConnectionPoolHolder.getDataSource().getConnection()) {
                 try {
                     connection.setAutoCommit(false);
                     PreparedStatement ps = connection.prepareStatement(queryInsertUser, Statement.RETURN_GENERATED_KEYS);
                     new UserMapper().putIntoPrepareStatement(ps, user);
+                    logger.info("create:"+ps);
                     ps.executeUpdate();
                     connection.commit();
                 } catch (SQLException ex) {

@@ -18,7 +18,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12">
 
                 <div id="log">
-                    <form  method="POST" action="${pageContext.request.contextPath}/registration">
+                    <form  method="POST" action="${pageContext.request.contextPath}/taxi/registration">
                         <h1>${msg:getMessage("registration-please-register")}</h1>
                         <div id="errormessagesbox">
                             <c:if test='${errorMessage!=""}'>

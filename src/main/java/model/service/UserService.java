@@ -1,6 +1,7 @@
 package model.service;
 
 import exception.UserAlreadyExistException;
+import exception.UserNotFoundException;
 import model.dao.DaoFactory;
 import model.dao.entity.User;
 import model.dao.UserDao;
@@ -12,9 +13,9 @@ public class UserService implements GenericService<User>{
 
     public boolean isEmailExist(String email) {
         try (UserDao dao = daoFactory.createUserDao()) {
-            User user = dao.findByEmail(email);
-            return user.getEmail() == null;
-        } catch (UserAlreadyExistException ex) {
+            dao.findByEmail(email);
+            return true;
+        } catch (UserNotFoundException ex) {
             return false;
         }
     }

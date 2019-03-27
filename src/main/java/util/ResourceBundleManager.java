@@ -42,6 +42,8 @@ public class ResourceBundleManager {
 
     public static final String CITYDISTANCE_BY_IDS = "citydistance-by-ids";
     public static final String MSG_ORDER_CONFIRM = "msg-confirm";
+    public static final String REGISTER_SUCCESSFUL = "msg-registration-successful";
+    public static final String ALREADY_EXIST_EMAIL = "registration-already-exist-email";
 
 
     private static final String BUNDLE_NAME_MESSAGE = "message";

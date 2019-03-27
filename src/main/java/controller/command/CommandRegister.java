@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandRegister implements Command {
-    private final static String ALREADY_EXIST_EMAIL = "registration-already-exist-email";
     private final static String EMPTY_EMAIL = "registration-empty-email";
     private static final String EMPTY_PHONE_NUMBER = "registration-empty-phone-number";
     private static final String EMPTY_PASSWORD = "registration-empty-password";
@@ -38,23 +37,28 @@ public class CommandRegister implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         if (POST_METHOD.equals(request.getMethod())) {
-            return methodSome(request);//todo rename
+            return processPost(request);
         } else {
             return ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
         }
     }
 
-    private String methodSome(HttpServletRequest request) {
+
+    private String processPost(HttpServletRequest request) {
         String page;
         User user = createUserFromRequest(request);
+        logger.info("user from registration page: " + user);
         Map<String, String> messages = new HashMap<>();
-        if (userService.isEmailExist(user.getEmail()) || !checkFields(request, messages, user)) {
+        boolean isEmailExist = userService.isEmailExist(user.getEmail());
+        if ( isEmailExist || !checkFields(request, messages, user)) {
+            if(isEmailExist)request.setAttribute("errorMessage",ResourceBundleManager
+                    .getMessage(ResourceBundleManager.ALREADY_EXIST_EMAIL));
             request.setAttribute("messages", messages);
             request.setAttribute("newUser", user);
             page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_REGISTER_PATH);
         } else {
             new JDBCDaoFactory().createUserDao().create(user);
-            request.setAttribute("message", ResourceBundleManager.getMessage("msg-registration-successful"));
+            request.setAttribute("message", ResourceBundleManager.getMessage(ResourceBundleManager.REGISTER_SUCCESSFUL));
             request.removeAttribute("messages");
             page = ResourceBundleManager.getPath(ResourceBundleManager.PAGE_LOGIN_PATH);
         }
@@ -114,6 +118,7 @@ public class CommandRegister implements Command {
                 messages.put("surname", ResourceBundleManager.getMessage(HINT_SURNAME));
             }
         }
+        logger.info("errors:"+messages);
         return messages.isEmpty();
     }
 }

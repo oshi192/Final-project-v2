@@ -35,6 +35,5 @@ public class UserMapper implements ObjectMapper<User> {
         ps.setString(3, user.getEmail());
         ps.setString(4, user.getPassword());
         ps.setString(5, user.getPhoneNumber());
-        ps.setInt(6, user.getRole().getId());
     }
 }
