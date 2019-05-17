@@ -26,11 +26,11 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
             <c:choose>
-                <c:when test="${order eq Nan}">
+                <c:when test="${order eq null}">
                     <jsp:include page="order-form.jsp"/>
                     <p>${requestScope.errorMessage}</p>
                 </c:when>
-                <c:when test="${order ne Nan}">
+                <c:when test="${order ne null}">
                     <jsp:include page="order-confirm.jsp"/>
                 </c:when>
                 <c:otherwise>
